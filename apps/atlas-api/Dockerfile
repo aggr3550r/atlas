@@ -13,7 +13,13 @@ FROM alpine:3.22
 
 WORKDIR /app
 
+RUN addgroup -S atlas && adduser -S atlas -G atlas
+
 COPY --from=builder /app/atlas-api ./atlas-api
+
+RUN chown atlas:atlas ./atlas-api
+
+USER atlas
 
 EXPOSE 8080
 
